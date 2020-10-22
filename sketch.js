@@ -24,24 +24,24 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(600, 400);
+  createCanvas(650, 420);
 
 
   ground = createSprite(200,180,400,20);
   ground.addImage("ground",groundImage);
   ground.x = ground.width /2;
-  ground.scale=2;
+  ground.scale=2.2;
   
   monkey = createSprite(70,60,20,50);
   monkey.addAnimation("running", monkey_running);
-  monkey.scale=0.2;
+  monkey.scale=0.18;
   
   gameOver= createSprite(300,200);
   gameOver.addImage(gameOverImg);
   gameOver.scale=0.5;
   gameOver.visible=false;
   
-  invisibleGround = createSprite(200,380,400,10);
+  invisibleGround = createSprite(200,390,400,10);
   invisibleGround.visible = false;
   
   //create Obstacle and Cloud Groups
@@ -51,7 +51,8 @@ function setup() {
   
   // To set the shape, size, angle,and x,y offset of the colloider.
   monkey.setCollider("rectangle",0,0,230,500);
-  
+  monkey.debug=true;
+
   score = 0;
   
 }
@@ -71,11 +72,8 @@ function draw() {
     }
     
     //jump when the space key is pressed
-    if(keyDown("space")&& monkey.y >= 200) {
-        monkey.velocityY = -18;
-    }
-    if(mousePressedOver(ground)){
-      monkey.velocityY = -18;
+    if(keyDown("space") && monkey.y >= 200 || mousePressedOver(ground)) {
+        monkey.velocityY = -15;
     }
     
     //add gravity
@@ -93,6 +91,7 @@ function draw() {
     }
     if (monkey.isTouching(bananaGroup))
          bananaGroup.destroyEach();
+       
   }
   
    else if (gameState === END){
@@ -168,6 +167,7 @@ function spawnBanana() {
     
     //add each cloud to the group
     bananaGroup.add(banana);
+ 
   }
 }
 
